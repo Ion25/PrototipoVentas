@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+        }
+        .container {
+            padding: 20px;
+        }
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        .inventory-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .inventory-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .inventory-item h3 {
+            margin: 0;
+        }
+        .inventory-item button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .inventory-item button:hover {
+            background-color: #218838;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            position: sticky;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-boxes"></i> Inventario
+    </header>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar producto...">
+            <button onclick="filterInventory()"><i class="fas fa-search"></i></button>
+        </div>
+        <ul class="inventory-list" id="inventoryList">
+            <!-- Ejemplo de productos -->
+            <li class="inventory-item">
+                <h3>Cuadernos</h3>
+                <div>
+                    <span>Stock: 50</span>
+                    <button onclick="updateStock('Cuadernos')">Actualizar</button>
+                </div>
+            </li>
+            <li class="inventory-item">
+                <h3>Lápices</h3>
+                <div>
+                    <span>Stock: 100</span>
+                    <button onclick="updateStock('Lápices')">Actualizar</button>
+                </div>
+            </li>
+            <li class="inventory-item">
+                <h3>Mochilas</h3>
+                <div>
+                    <span>Stock: 25</span>
+                    <button onclick="updateStock('Mochilas')">Actualizar</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <footer>
+        &copy; 2024 Gestión de Ventas - Todos los derechos reservados
+    </footer>
+
+    <script>
+        const inventoryList = document.getElementById("inventoryList");
+
+        function filterInventory() {
+            const searchValue = document.getElementById("searchInput").value.toLowerCase();
+            const items = inventoryList.querySelectorAll(".inventory-item");
+            items.forEach(item => {
+                const productName = item.querySelector("h3").textContent.toLowerCase();
+                item.style.display = productName.includes(searchValue) ? "flex" : "none";
+            });
+        }
+
+        function updateStock(productName) {
+            const newStock = prompt(`Ingrese el nuevo stock para ${productName}:`);
+            if (newStock !== null && !isNaN(newStock) && newStock >= 0) {
+                const items = inventoryList.querySelectorAll(".inventory-item");
+                items.forEach(item => {
+                    const product = item.querySelector("h3").textContent;
+                    if (product === productName) {
+                        item.querySelector("span").textContent = `Stock: ${newStock}`;
+                    }
+                });
+            } else {
+                alert("Por favor, ingrese un valor válido.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Venta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select, 
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .voice-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .voice-input button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .voice-input button:hover {
+            background-color: #218838;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .summary h2 {
+            margin: 0 0 10px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-shopping-cart"></i> Registrar Venta
+    </header>
+    <div class="container">
+        <div class="form-group">
+            <label for="product">Producto</label>
+            <select id="product">
+                <option value="Cuadernos">Cuadernos</option>
+                <option value="Lápices">Lápices</option>
+                <option value="Mochilas">Mochilas</option>
+                <option value="Colores">Colores</option>
+                <option value="Borradores">Borradores</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" id="quantity" placeholder="Ingrese la cantidad" min="1">
+        </div>
+        <div class="voice-input">
+            <button id="voiceButton"><i class="fas fa-microphone"></i> Entrada por Voz</button>
+            <span id="voiceStatus">Pulsa para empezar a hablar</span>
+        </div>
+        <div class="form-group">
+            <button id="registerButton">Registrar Venta</button>
+        </div>
+        <div class="summary" id="summary">
+            <h2>Resumen de Venta</h2>
+            <p>No hay ventas registradas todavía.</p>
+        </div>
+    </div>
+
+    <script>
+        // Captura de datos del formulario
+        const registerButton = document.getElementById("registerButton");
+        const productSelect = document.getElementById("product");
+        const quantityInput = document.getElementById("quantity");
+        const summaryDiv = document.getElementById("summary");
+
+        registerButton.addEventListener("click", () => {
+            const product = productSelect.value;
+            const quantity = quantityInput.value;
+
+            if (!quantity || quantity <= 0) {
+                alert("Por favor, ingrese una cantidad válida.");
+                return;
+            }
+
+            summaryDiv.innerHTML = `
+                <h2>Resumen de Venta</h2>
+                <p><strong>Producto:</strong> ${product}</p>
+                <p><strong>Cantidad:</strong> ${quantity}</p>
+                <p><strong>Total:</strong> S/. ${(quantity * 5).toFixed(2)} (S/. 5 por unidad)</p>
+            `;
+        });
+
+        // Reconocimiento de voz
+        const voiceButton = document.getElementById("voiceButton");
+        const voiceStatus = document.getElementById("voiceStatus");
+
+        voiceButton.addEventListener("click", () => {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "es-ES";
+
+            recognition.onstart = () => {
+                voiceStatus.textContent = "Escuchando...";
+            };
+
+            recognition.onspeechend = () => {
+                recognition.stop();
+                voiceStatus.textContent = "Procesando...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                quantityInput.value = transcript.match(/\d+/) ? parseInt(transcript) : "";
+                voiceStatus.textContent = "Listo.";
+            };
+
+            recognition.onerror = () => {
+                voiceStatus.textContent = "No se pudo procesar la voz.";
+            };
+
+            recognition.start();
+        });
+    </script>
+</body>
+</html>

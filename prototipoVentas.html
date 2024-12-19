@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Ventas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            padding: 20px;
+        }
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .menu-item {
+            background-color: #fff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .menu-item:hover {
+            background-color: #0056b3;
+            color: white;
+            transform: translateY(-5px);
+        }
+        .menu-item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        .menu-item:hover i {
+            color: white;
+        }
+        .menu-item h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            flex: 1;
+            min-width: calc(50% - 10px);
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+        .stat-card h2 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        .stat-card p {
+            margin: 10px 0 0;
+            color: #555;
+        }
+        .alert {
+            border: 2px solid #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        .highlight {
+            border: 2px solid #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            position: sticky;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-store"></i> Gestión de Ventas
+    </header>
+    <div class="container">
+        <div class="menu">
+            <div class="menu-item">
+                <a href="registrarVenta.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Registrar Venta</h3>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="inventario.html">
+                    <i class="fas fa-boxes"></i>
+                    <h3>Inventario</h3>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="reportes.html">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Reportes</h3>
+                </a>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i>
+                <h3>Clientes</h3>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat-card alert">
+                <h2>¡Cuadernos!</h2>
+                <p>Stock crítico: 5 unidades</p>
+            </div>
+            <div class="stat-card highlight">
+                <h2>Mochilas</h2>
+                <p>Producto más vendido</p>
+            </div>
+            <div class="stat-card">
+                <h2>S/. 1200</h2>
+                <p>Ventas de hoy</p>
+            </div>
+            <div class="stat-card">
+                <h2>350</h2>
+                <p>Productos en stock</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Gestión de Ventas - Todos los derechos reservados
+    </footer>
+</body>
+</html>
