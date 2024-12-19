@@ -70,25 +70,33 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
-            position: relative;
         }
         .stat-card h2 {
             font-size: 2rem;
             margin: 0;
+            color: #007bff;
         }
         .stat-card p {
             margin: 10px 0 0;
             color: #555;
         }
-        .alert {
-            border: 2px solid #dc3545;
-            background-color: rgba(220, 53, 69, 0.1);
-            color: #dc3545;
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
         }
-        .highlight {
-            border: 2px solid #28a745;
-            background-color: rgba(40, 167, 69, 0.1);
-            color: #28a745;
+        .action-button {
+            padding: 15px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover {
+            background-color: #218838;
         }
         footer {
             text-align: center;
@@ -129,15 +137,18 @@
                 <h3>Clientes</h3>
             </div>
         </div>
+
+        <!-- Acciones rápidas: Enlace a Yape y al escáner -->
+        <div class="action-buttons">
+            <button class="action-button" id="yapeButton">
+                <i class="fas fa-mobile-alt"></i> Pagar con Yape
+            </button>
+            <button class="action-button" id="scannerButton">
+                <i class="fas fa-camera"></i> Escanear Lista
+            </button>
+        </div>
+
         <div class="stats">
-            <div class="stat-card alert">
-                <h2>¡Cuadernos!</h2>
-                <p>Stock crítico: 5 unidades</p>
-            </div>
-            <div class="stat-card highlight">
-                <h2>Mochilas</h2>
-                <p>Producto más vendido</p>
-            </div>
             <div class="stat-card">
                 <h2>S/. 1200</h2>
                 <p>Ventas de hoy</p>
@@ -148,8 +159,23 @@
             </div>
         </div>
     </div>
+
     <footer>
         &copy; 2024 Gestión de Ventas - Todos los derechos reservados
     </footer>
+
+    <script>
+        // Enlazar los botones a las acciones respectivas
+        document.getElementById("yapeButton").addEventListener("click", function() {
+            // Aquí puedes agregar el enlace al método de pago de Yape
+            alert("Redirigiendo a Yape para el pago...");
+            window.location.href = "metodosPago.html";  // Cambia esta URL por la correcta si es necesario
+        });
+
+        document.getElementById("scannerButton").addEventListener("click", function() {
+            // Aquí rediriges al escáner de la lista de útiles
+            window.location.href = "scanner.html";  // Redirige a la página de escaneo
+        });
+    </script>
 </body>
 </html>
