@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Ventas - Escáner de Listas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            padding: 20px;
+        }
+        .scanner-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .scanner-section button {
+            padding: 15px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .scanner-section button:hover {
+            background-color: #0056b3;
+        }
+        .products-section {
+            margin-top: 30px;
+        }
+        .products-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        .product-list {
+            list-style: none;
+            padding: 0;
+        }
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product-item span {
+            font-weight: bold;
+        }
+        .product-item.out-of-stock {
+            background-color: #ffdce0;
+            border-left: 5px solid red;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-list"></i> Escáner de Listas de Útiles
+    </header>
+    <div class="container">
+        <div class="scanner-section">
+            <button id="scanButton">
+                <i class="fas fa-camera"></i> Escanear Lista
+            </button>
+            <p id="scanMessage" style="margin-top: 10px; color: gray;">Sube o escanea una lista de útiles escolares.</p>
+        </div>
+        <div class="products-section">
+            <h2>Productos Escaneados:</h2>
+            <ul class="product-list" id="productList">
+                <!-- Productos escaneados aparecerán aquí -->
+                <li class="product-item">
+                    <span>Cuaderno</span>
+                    <span>10 unidades</span>
+                </li>
+                <li class="product-item out-of-stock">
+                    <span>Mochila</span>
+                    <span>0 unidades (sin stock)</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Gestión de Ventas - Todos los derechos reservados
+    </footer>
+
+    <script>
+        const scanButton = document.getElementById('scanButton');
+        const productList = document.getElementById('productList');
+        const scanMessage = document.getElementById('scanMessage');
+
+        scanButton.addEventListener('click', () => {
+            scanMessage.textContent = "Simulando el escaneo de una lista...";
+            // Simulación de productos escaneados
+            setTimeout(() => {
+                const products = [
+                    { name: "Cuaderno", quantity: 10, inStock: true },
+                    { name: "Mochila", quantity: 0, inStock: false },
+                    { name: "Lapicero", quantity: 25, inStock: true }
+                ];
+                productList.innerHTML = "";
+                products.forEach(product => {
+                    const li = document.createElement('li');
+                    li.className = `product-item ${!product.inStock ? 'out-of-stock' : ''}`;
+                    li.innerHTML = `<span>${product.name}</span><span>${product.quantity} unidades</span>`;
+                    productList.appendChild(li);
+                });
+                scanMessage.textContent = "Escaneo completo.";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
